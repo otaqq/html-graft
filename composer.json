@@ -1,0 +1,42 @@
+{
+    "name": "otaqq/html-graft",
+    "description": "Rewrite an opaque HTML document at serve time without re-parsing it: fill comment-marked slots, insert fragments before a tag or after an opening tag, and rewrite named meta/link attributes. The nginx sub_filter / SSI idea.",
+    "keywords": [
+        "html",
+        "rewrite",
+        "inject",
+        "slot",
+        "ssi",
+        "sub_filter",
+        "server-side",
+        "markup",
+        "post-processing",
+        "non-destructive"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "otaqq"
+        }
+    ],
+    "require": {
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5|^12.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Otaqq\\HtmlGraft\\": "lang/php/core/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Otaqq\\HtmlGraft\\Tests\\": "lang/php/core/tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

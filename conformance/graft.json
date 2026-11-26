@@ -1,0 +1,146 @@
+[
+  {
+    "op": "slot",
+    "args": ["latest", "NEW"],
+    "html": "<div><!--@slot:latest-->old<!--@/slot:latest--></div>",
+    "expected": "<div>NEW</div>"
+  },
+  {
+    "op": "slot",
+    "args": ["latest", null],
+    "html": "<div><!--@slot:latest-->old<!--@/slot:latest--></div>",
+    "expected": "<div>old</div>"
+  },
+  {
+    "op": "slot",
+    "args": ["latest", ""],
+    "html": "<div><!--@slot:latest-->old<!--@/slot:latest--></div>",
+    "expected": "<div></div>"
+  },
+  {
+    "op": "slot",
+    "args": ["latest", "NEW"],
+    "html": "<div>no markers here</div>",
+    "expected": "<div>no markers here</div>"
+  },
+  {
+    "op": "slot",
+    "args": ["bad name", "NEW"],
+    "html": "<div><!--@slot:bad name-->old<!--@/slot:bad name--></div>",
+    "expected": "<div><!--@slot:bad name-->old<!--@/slot:bad name--></div>"
+  },
+  {
+    "op": "slot",
+    "args": ["x", "A"],
+    "html": "<!--@slot:x-->1<!--@/slot:x--><!--@slot:x-->2<!--@/slot:x-->",
+    "expected": "A<!--@slot:x-->2<!--@/slot:x-->"
+  },
+  {
+    "op": "slot",
+    "args": ["x", "A"],
+    "html": "<!--@/slot:x-->close before open<!--@slot:x-->",
+    "expected": "<!--@/slot:x-->close before open<!--@slot:x-->"
+  },
+  {
+    "op": "before",
+    "args": ["</head>", "<meta name=\"x\">"],
+    "html": "<head><title>t</title></HEAD><body>",
+    "expected": "<head><title>t</title><meta name=\"x\"></HEAD><body>"
+  },
+  {
+    "op": "before",
+    "args": ["</head>", "<meta>"],
+    "html": "<body>no head close</body>",
+    "expected": "<body>no head close</body>"
+  },
+  {
+    "op": "before",
+    "args": ["X", "-"],
+    "html": "aXbXc",
+    "expected": "a-XbXc"
+  },
+  {
+    "op": "afterOpenTag",
+    "args": ["body", "<!--g-->"],
+    "html": "<html><body class=\"x\" data-y>hi</body></html>",
+    "expected": "<html><body class=\"x\" data-y><!--g-->hi</body></html>"
+  },
+  {
+    "op": "afterOpenTag",
+    "args": ["body", "<!--g-->"],
+    "html": "<html><BODY>hi</BODY></html>",
+    "expected": "<html><BODY><!--g-->hi</BODY></html>"
+  },
+  {
+    "op": "afterOpenTag",
+    "args": ["body", "<!--g-->"],
+    "html": "<html><head></head></html>",
+    "expected": "<html><head></head></html>"
+  },
+  {
+    "op": "afterOpenTag",
+    "args": ["section", "X"],
+    "html": "<section>a</section><section>b</section>",
+    "expected": "<section>Xa</section><section>b</section>"
+  },
+  {
+    "op": "attr",
+    "args": ["meta", "property", "og:image", "content", "https://example.test/x.png"],
+    "html": "<meta property=\"og:image\" content=\"old.png\">",
+    "expected": "<meta property=\"og:image\" content=\"https://example.test/x.png\">"
+  },
+  {
+    "op": "attr",
+    "args": ["link", "rel", "canonical", "href", "https://example.test/p"],
+    "html": "<link rel=\"canonical\" href=\"https://brand.example/p\">",
+    "expected": "<link rel=\"canonical\" href=\"https://example.test/p\">"
+  },
+  {
+    "op": "attr",
+    "args": ["meta", "property", "og:image", "content", "https://example.test/x.png"],
+    "html": "<meta property=\"og:title\" content=\"keep\">",
+    "expected": "<meta property=\"og:title\" content=\"keep\">"
+  },
+  {
+    "op": "attr",
+    "args": ["meta", "property", "og:image", "content", "https://example.test/x.png"],
+    "html": "<meta property=\"og:image\">",
+    "expected": "<meta property=\"og:image\">"
+  },
+  {
+    "op": "attr",
+    "args": ["meta", "property", "og:image", "content", "a\"&<b"],
+    "html": "<meta property='og:image' content=\"old\">",
+    "expected": "<meta property='og:image' content=\"a&quot;&amp;&lt;b\">"
+  },
+  {
+    "op": "attr",
+    "args": ["meta", "property", "og:image", "content", "N"],
+    "html": "<meta property=\"og:image\" content=\"a\"><meta property=\"og:image\" content=\"b\">",
+    "expected": "<meta property=\"og:image\" content=\"N\"><meta property=\"og:image\" content=\"N\">"
+  },
+  {
+    "op": "has",
+    "args": ["<!--@front-top-->"],
+    "html": "<html><!--@front-top--><body>",
+    "expected": true
+  },
+  {
+    "op": "has",
+    "args": ["<!--@front-top-->"],
+    "html": "<html><body>",
+    "expected": false
+  },
+  {
+    "op": "strip",
+    "args": ["<!--@front-top-->"],
+    "html": "<!--@front-top--><html><!--@front-top--><body>",
+    "expected": "<html><body>"
+  },
+  {
+    "op": "strip",
+    "args": ["<!--@front-top-->"],
+    "html": "<html><body>",
+    "expected": "<html><body>"
+  }
+]

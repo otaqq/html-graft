@@ -1,0 +1,21 @@
+# PHP runs in a container so the host needs nothing but Docker
+[tasks."php:image"]
+run = "docker build -q -t html-graft-php lang/php/docker >/dev/null"
+
+[tasks.setup]
+description = "Install the Composer dependencies"
+depends = ["php:image"]
+run = "docker run --rm -u $(id -u):$(id -g) -v $PWD:/app html-graft-php composer install"
+
+[tasks.composer]
+depends = ["php:image"]
+run = "docker run --rm -u $(id -u):$(id -g) -v $PWD:/app html-graft-php composer"
+
+[tasks."test:php"]
+description = "PHP tests"
+depends = ["php:image"]
+run = "docker run --rm -u $(id -u):$(id -g) -v $PWD:/app html-graft-php vendor/bin/phpunit"
+
+[tasks.test]
+description = "Tests of every language (PHP for now)"
+depends = ["test:php"]
